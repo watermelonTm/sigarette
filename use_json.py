@@ -47,20 +47,30 @@ while ready:
     
     barcode_letto = float(valore_letto) if valore_letto.isnumeric() else 0
     # Check if input is in list of dictionaries
-    check = any(dictionary.get('barcode') == barcode_letto for dictionary in lista_sigarette)
-    if not check:
+    check_singolo = any(dictionary.get('barcode') == barcode_letto for dictionary in lista_sigarette)
+    check_stecca = any(dictionary.get('barcode_stecca') == barcode_letto for dictionary in lista_sigarette)
+    if not check_singolo and not check_stecca:
         raise InvalidBarcode
     else:
         for sigaretta in lista_sigarette:
           if barcode_letto == sigaretta['barcode']:
             nome_prodotto = sigaretta['nome']
             aams_prodotto = sigaretta['codice_aams']
-            prezzo_prodotto = sigaretta['prezzo']
+            prezzo_prodotto = format(sigaretta['prezzo'], '.2f')
             # Aggiungi codice_aams e prezzo del prodotto scasionato
             aggiungi_scansionato(sigarette_vendute, nome_prodotto, aams_prodotto, prezzo_prodotto)
             # Stampa nome (alias) prodotto e prezzo
             alias_prodotto = sigaretta['alias'][0] if sigaretta['alias'][0] else nome_prodotto
-            print(f'\nTrovato: {alias_prodotto} -- {prezzo_prodotto}€')
+            print(f'\nPacchetto {alias_prodotto} -- {prezzo_prodotto}€')
+          if barcode_letto == sigaretta['barcode_stecca']:
+            nome_prodotto = sigaretta['nome']
+            aams_prodotto = sigaretta['codice_aams']
+            prezzo_prodotto = format(round(sigaretta['prezzo_conv'] * sigaretta['min_kgc']), '.2f')
+            # Aggiungi codice_aams e prezzo della stecca scasionata
+            aggiungi_scansionato(sigarette_vendute, nome_prodotto, aams_prodotto, prezzo_prodotto)
+            # Stampa nome (alias) prodotto e prezzo stecca
+            alias_prodotto = sigaretta['alias'][0] if sigaretta['alias'][0] else nome_prodotto
+            print(f'\nConfezione {alias_prodotto} -- {prezzo_prodotto}€ \nPer sicurezza verificare la correttezza del prezzo')
   except InvalidBarcode:
     print("Attenzione: Barcode mancante o non trovato!")
     pass

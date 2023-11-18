@@ -2,6 +2,8 @@ import json
 import os
 from os.path import join
 import pandas as pd
+import locale
+locale.setlocale(locale.LC_NUMERIC, 'it_IT')
 
 df_sigarette = pd.read_excel("elenco_sigarette.xlsx")
 
@@ -25,9 +27,9 @@ with open(path, "r") as jsonFile:
 for (codice, nome, conv, prezzo) in zip(df_codice_aams, df_nome, df_conv, df_prezzo):
   elenco['lista_sigarette'].append({
   "nome": nome,
-  "codice_aams": codice,
-  "prezzo": prezzo,
-  "prezzo_conv": conv,
+  "codice_aams": int(codice),
+  "prezzo": locale.atof(prezzo),
+  "prezzo_conv": locale.atof(conv),
   "alias": ["", "", "", "", "", ""],
   "barcode": "",
   "barcode_stecca": "",
@@ -39,7 +41,7 @@ elenco['lista_sigarette'].append({
   "nome": "my blu intense tobacco 18mg",
   "codice_aams": 4853,
   "prezzo": "Chiedere per sicurezza: 9,00",
-  "prezzo_conv": "",
+  "prezzo_conv": 45,
   "alias": ["myblu intense tabacco 18mg - V4853", "myblu intense", "my blu intense", "intense tabacco", "V4853", ""],
   "barcode": "",
   "barcode_stecca": "",
