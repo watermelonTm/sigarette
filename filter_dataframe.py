@@ -13,13 +13,14 @@ path = join(os.getcwd(), "pdf_folder/lista_completa.xlsx")
 df_raw = pd.read_excel(path)
 
 filtered_raw = list()
+# codice = float
 for codice in codici_aams:
-  check = df_raw[df_raw['Codice'] == str(codice)].values
+  check = df_raw[df_raw['Codice'] == str(codice)[:-2]].values
   if check.size == 5:
     filtered_raw.append(check)
 filtered_raw2 = np.vstack(filtered_raw)
 
-## convert your array into a dataframe
+# convert your array into a dataframe
 result_df = pd.DataFrame(filtered_raw2)
 
 filepath = 'elenco_sigarette.xlsx'

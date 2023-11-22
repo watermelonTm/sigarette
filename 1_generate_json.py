@@ -31,10 +31,11 @@ for (codice, nome, conv, prezzo) in zip(df_codice_aams, df_nome, df_conv, df_pre
   "prezzo": locale.atof(prezzo),
   "prezzo_conv": locale.atof(conv),
   "alias": ["", "", "", "", "", ""],
-  "barcode": "",
-  "barcode_stecca": "",
-  "min_kgc": "",
+  "barcode": 000,
+  "barcode_stecca": 000,
+  "min_kgc": 0,
   "categoria": "",
+  "vendita": "",
   })
 # Aggiungi Pod myblu intense tabaggo 18mg
 elenco['lista_sigarette'].append({
@@ -43,10 +44,11 @@ elenco['lista_sigarette'].append({
   "prezzo": "Chiedere per sicurezza: 9,00",
   "prezzo_conv": 45,
   "alias": ["myblu intense tabacco 18mg - V4853", "myblu intense", "my blu intense", "intense tabacco", "V4853", ""],
-  "barcode": "",
-  "barcode_stecca": "",
+  "barcode": 000,
+  "barcode_stecca": 000,
   "min_kgc": "",
   "categoria": "",
+  "vendita": "",
   })
 
 with open(path, "r+") as jsonFile:

@@ -45,7 +45,7 @@ while ready:
       ready = False
       raise Chiusura
     
-    barcode_letto = float(valore_letto) if valore_letto.isnumeric() else 0
+    barcode_letto = valore_letto if valore_letto.isnumeric() else -1
     # Check if input is in list of dictionaries
     check_singolo = any(dictionary.get('barcode') == barcode_letto for dictionary in lista_sigarette)
     check_stecca = any(dictionary.get('barcode_stecca') == barcode_letto for dictionary in lista_sigarette)
@@ -56,7 +56,8 @@ while ready:
           if barcode_letto == sigaretta['barcode']:
             nome_prodotto = sigaretta['nome']
             aams_prodotto = sigaretta['codice_aams']
-            prezzo_prodotto = format(sigaretta['prezzo'], '.2f')
+            # prezzo_prodotto = format(sigaretta['prezzo'], '.2f')
+            prezzo_prodotto = sigaretta['prezzo']
             # Aggiungi codice_aams e prezzo del prodotto scasionato
             aggiungi_scansionato(sigarette_vendute, nome_prodotto, aams_prodotto, prezzo_prodotto)
             # Stampa nome (alias) prodotto e prezzo

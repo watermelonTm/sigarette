@@ -7,11 +7,11 @@ import json
 from PyPDF2 import PdfMerger
 
 path = os.chdir(join(os.getcwd(), "pdf_folder"))
-pdf_list = [a for a in sorted(os.listdir()) if a.endswith('.pdf')]
+pdf_list = [a for a in sorted(os.listdir()) if a.endswith('.pdf') and a != "lista_completa.pdf"]
 merger = PdfMerger()
 
 for pdf in pdf_list:
-    merger.append(open(pdf, 'rb'))
+  merger.append(open(pdf, 'rb'))
 
 filepath = "lista_completa.pdf"
 if os.path.exists(filepath):
